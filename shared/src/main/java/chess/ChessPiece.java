@@ -15,7 +15,12 @@ public class ChessPiece {
 
     /**
      * The various different chess piece options
+     *
+     * class MyChessPiece implements ChessPiece, ChessBoard, ChessMove {
+     *
+     * }
      */
+
     public enum PieceType {
         KING,
         QUEEN,
