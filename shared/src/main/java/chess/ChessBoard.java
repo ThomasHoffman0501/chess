@@ -10,7 +10,7 @@ public class ChessBoard {
 
     private ChessPiece[][] squares = new ChessPiece[8][8];
     public ChessBoard() {
-
+        resetBoard();
     }
 
     /**
@@ -20,7 +20,7 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        squares[position.getRow()][position.getColumn()-1] = piece;
+        squares[position.getRow()-1][position.getColumn()-1] = piece;
     }
 
     /**
@@ -31,7 +31,7 @@ public class ChessBoard {
      * position
      */
     public ChessPiece getPiece(ChessPosition position) {
-        return squares[position.getRow()][position.getColumn()-1];
+        return squares[position.getRow()-1][position.getColumn()-1];
     }
 
     /**
@@ -39,5 +39,25 @@ public class ChessBoard {
      * (How the game of chess normally starts)
      */
     public void resetBoard() {
+        // White Piece Layout for Chessboard
+        addPiece(new ChessPosition(1,1), new ChessPiece(ChessPiece.PieceType.ROOK, "W"));
+        addPiece(new ChessPosition(1,2), new ChessPiece(ChessPiece.PieceType.KNIGHT, "W"));
+        addPiece(new ChessPosition(1,3), new ChessPiece(ChessPiece.PieceType.BISHOP, "W"));
+        addPiece(new ChessPosition(1,4), new ChessPiece(ChessPiece.PieceType.QUEEN, "W"));
+        addPiece(new ChessPosition(1,5), new ChessPiece(ChessPiece.PieceType.KING, "W"));
+        addPiece(new ChessPosition(1,6), new ChessPiece(ChessPiece.PieceType.BISHOP, "W"));
+        addPiece(new ChessPosition(1,7), new ChessPiece(ChessPiece.PieceType.KNIGHT, "W"));
+        addPiece(new ChessPosition(1,8), new ChessPiece(ChessPiece.PieceType.ROOK, "W"));
+
+
+        // Black Piece Layout for Chessboard
+        addPiece(new ChessPosition(8,1), new ChessPiece(ChessPiece.PieceType.ROOK, "B"));
+        addPiece(new ChessPosition(8,2), new ChessPiece(ChessPiece.PieceType.KNIGHT, "B"));
+        addPiece(new ChessPosition(8,3), new ChessPiece(ChessPiece.PieceType.BISHOP, "B"));
+        addPiece(new ChessPosition(8,4), new ChessPiece(ChessPiece.PieceType.QUEEN, "B"));
+        addPiece(new ChessPosition(8,5), new ChessPiece(ChessPiece.PieceType.KING, "B"));
+        addPiece(new ChessPosition(8,6), new ChessPiece(ChessPiece.PieceType.BISHOP, "B"));
+        addPiece(new ChessPosition(8,7), new ChessPiece(ChessPiece.PieceType.KNIGHT, "B"));
+        addPiece(new ChessPosition(8,8), new ChessPiece(ChessPiece.PieceType.ROOK, "B"));
     }
 }
