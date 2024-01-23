@@ -49,6 +49,10 @@ public class ChessBoard {
         addPiece(new ChessPosition(1,7), new ChessPiece(ChessPiece.PieceType.KNIGHT, "W"));
         addPiece(new ChessPosition(1,8), new ChessPiece(ChessPiece.PieceType.ROOK, "W"));
 
+        // Pawns : White
+        for (int i = 1; i <= 8; i++) {
+            addPiece(new ChessPosition(2, i), new ChessPiece(ChessPiece.PieceType.PAWN, "W"));
+        }
 
         // Black Piece Layout for Chessboard
         addPiece(new ChessPosition(8,1), new ChessPiece(ChessPiece.PieceType.ROOK, "B"));
@@ -59,5 +63,10 @@ public class ChessBoard {
         addPiece(new ChessPosition(8,6), new ChessPiece(ChessPiece.PieceType.BISHOP, "B"));
         addPiece(new ChessPosition(8,7), new ChessPiece(ChessPiece.PieceType.KNIGHT, "B"));
         addPiece(new ChessPosition(8,8), new ChessPiece(ChessPiece.PieceType.ROOK, "B"));
+
+        // Pawns: Black
+        for (int i = 1; i <= 8; i++) {
+            addPiece(new ChessPosition(7, i), new ChessPiece(ChessPiece.PieceType.PAWN, "B"));
+        }
     }
 }
