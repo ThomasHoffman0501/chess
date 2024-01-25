@@ -2,8 +2,8 @@ package chess;
 import java.util.Collection;
 import java.util.HashSet;
 public class QueenMoveSet {
-    public static Collection<ChessMove> getValidMoves(ChessBoard board, ChessPosition currentPosition) {
-        Collection<ChessMove> validMoves = new HashSet<>();
+    public static Collection<ChessMove> getValidMoves(ChessBoard board, ChessPosition currentPosition, ChessGame.TeamColor pieceColor) {
+        HashSet<ChessMove> validMoves = new HashSet<>();
 
         // Rook Moves
         for (int i = 1; i <= 8; i++) {
@@ -49,4 +49,16 @@ public class QueenMoveSet {
             newColumn += colDirection;
         }
     }
+
+private boolean checkEnemy(ChessBoard board, ChessPosition openPosition, ChessGame.TeamColor mycolor) {
+    if (board.getPiece(openPosition) == null) {
+        return true;
+    }
+    if (board.getPiece(openPosition).getTeamColor() != mycolor) {
+        return true;
+    } else {
+        return false; // This is a piece of the same color (Not an enemy)
+    }
 }
+}
+
