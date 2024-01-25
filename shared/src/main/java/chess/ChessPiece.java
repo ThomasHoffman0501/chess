@@ -2,6 +2,8 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * Represents a single chess piece
@@ -11,21 +13,21 @@ import java.util.Collection;
  */
 public class ChessPiece {
 
-    private ChessGame.TeamColor pieceColor;
-    private PieceType type;
+    private final ChessGame.TeamColor pieceColor;
+    private final PieceType type;
 
-    public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
+    public ChessPiece(ChessGame.TeamColor pieceColor, PieceType type) {
 
-            this.pieceColor = pieceColor;
-            this.type = type;
+        this.pieceColor = pieceColor;
+        this.type = type;
 
     }
 
     /**
      * The various different chess piece options
-     *
+     * <p>
      * class MyChessPiece implements ChessPiece, ChessBoard, ChessMove {
-     *
+     * <p>
      * }
      */
 
@@ -60,6 +62,51 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        return new ArrayList<>();
+        HashSet<ChessMove> validMoves = new HashSet<>();
+        // getvalidMoveset for each ChessPiece and its Position
+
+        // Checks the type of Chess piece. Gets the MoveSet from that piece
+        switch (type) {
+            case KING:
+                validMoves.addAll(KingMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                break;
+            case QUEEN:
+                validMoves.addAll(QueenMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                break;
+            case ROOK:
+                validMoves.addAll(new RookMoveSet().getValidMoves(board, myPosition, this.pieceColor));
+                break;
+            case PAWN:
+                validMoves.addAll(PawnMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                break;
+            case KNIGHT:
+                validMoves.addAll(KnightMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                break;
+            case BISHOP:
+                validMoves.addAll(BishopMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                break;
+        }
+        return validMoves;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessPiece that = (ChessPiece) o;
+        return pieceColor == that.pieceColor && type == that.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pieceColor, type);
+    }
+
+    @Override
+    public String toString() {
+        return "CP{" +
+                "Color=" + pieceColor +
+                ", type=" + type +
+                '}';
     }
 }
