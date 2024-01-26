@@ -4,30 +4,30 @@ import java.util.HashSet;
 
 public class KingMoveSet {
 
-    public static Collection<ChessMove> getValidMoves(ChessBoard board, ChessPosition currentPosition,ChessGame.TeamColor pieceColor) {
-        HashSet<ChessMove> validMoves = new HashSet <>();
+    public static Collection<ChessMove> getMoves(ChessBoard board, ChessPosition currentPosition, ChessGame.TeamColor pieceColor) {
+        HashSet<ChessMove> correctMoves = new HashSet <>();
 
         int currentRow = currentPosition.getRow();
         int currentColumn = currentPosition.getColumn();
 
         // King Moves
-        addMove(validMoves, board, currentPosition,currentRow + 1, currentColumn); // D
-        addMove(validMoves, board, currentPosition,currentRow - 1, currentColumn); // U
-        addMove(validMoves, board, currentPosition, currentRow, currentColumn + 1); // R
-        addMove(validMoves, board, currentPosition, currentRow, currentColumn - 1); // L
-        addMove(validMoves, board, currentPosition, currentRow + 1, currentColumn + 1); // Diagonal: DR
-        addMove(validMoves, board, currentPosition,currentRow + 1, currentColumn - 1); // Diagonal: DL
-        addMove(validMoves, board, currentPosition,currentRow - 1, currentColumn + 1); // Diagonal: UR
-        addMove(validMoves, board, currentPosition,currentRow - 1, currentColumn - 1); // Diagonal: UL
+        addMove(correctMoves, board, currentPosition,currentRow + 1, currentColumn); // D
+        addMove(correctMoves, board, currentPosition,currentRow - 1, currentColumn); // U
+        addMove(correctMoves, board, currentPosition, currentRow, currentColumn + 1); // R
+        addMove(correctMoves, board, currentPosition, currentRow, currentColumn - 1); // L
+        addMove(correctMoves, board, currentPosition, currentRow + 1, currentColumn + 1); // Diagonal: DR
+        addMove(correctMoves, board, currentPosition,currentRow + 1, currentColumn - 1); // Diagonal: DL
+        addMove(correctMoves, board, currentPosition,currentRow - 1, currentColumn + 1); // Diagonal: UR
+        addMove(correctMoves, board, currentPosition,currentRow - 1, currentColumn - 1); // Diagonal: UL
 
-        return validMoves;
+        return correctMoves;
     }
 
-    private static void addMove(Collection<ChessMove> validMoves, ChessBoard board, ChessPosition chessPosition, int row, int column) {
-        if (ChessBoard.isValidPosition(row, column)) {
+    private static void addMove(Collection<ChessMove> correctMoves, ChessBoard board, ChessPosition chessPosition, int row, int column) {
+        if (ChessBoard.isCorrectPosition(row, column)) {
             ChessPiece pieceAtNewPosition = board.getPiece(new ChessPosition(row, column));
             if (pieceAtNewPosition == null || !pieceAtNewPosition.getTeamColor().equals(board.getPiece(chessPosition).getTeamColor())) {
-                validMoves.add(new ChessMove(chessPosition, new ChessPosition(row, column), null));
+                correctMoves.add(new ChessMove(chessPosition, new ChessPosition(row, column), null));
             }
         }
     }

@@ -1,6 +1,5 @@
 package chess;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -68,22 +67,22 @@ public class ChessPiece {
         // Checks the type of Chess piece. Gets the MoveSet from that piece
         switch (type) {
             case KING:
-                validMoves.addAll(KingMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                validMoves.addAll(KingMoveSet.getMoves(board, myPosition, this.pieceColor));
                 break;
             case QUEEN:
-                validMoves.addAll(new QueenMoveSet().getValidMoves(board, myPosition, this.pieceColor));
+                validMoves.addAll(new QueenMoveSet().getMoves(board, myPosition, this.pieceColor));
                 break;
             case ROOK:
-                validMoves.addAll(new RookMoveSet().getValidMoves(board, myPosition, this.pieceColor));
+                validMoves.addAll(new RookMoveSet().getMoves(board, myPosition, this.pieceColor));
                 break;
             case PAWN:
-                validMoves.addAll(PawnMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                validMoves.addAll(PawnMoveSet.getMoves(board, myPosition, this.pieceColor));
                 break;
             case KNIGHT:
-                validMoves.addAll(KnightMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                validMoves.addAll(KnightMoveSet.getMoves(board, myPosition, this.pieceColor));
                 break;
             case BISHOP:
-                validMoves.addAll(BishopMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                validMoves.addAll(BishopMoveSet.getMoves(board, myPosition, this.pieceColor));
                 break;
         }
         return validMoves;
