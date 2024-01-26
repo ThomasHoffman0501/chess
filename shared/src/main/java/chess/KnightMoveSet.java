@@ -29,16 +29,5 @@ public class KnightMoveSet {
             }
         }
     }
-
-    private boolean checkEnemy(ChessBoard board, ChessPosition openPosition, ChessGame.TeamColor mycolor) {
-        if (board.getPiece(openPosition) == null) {
-            return true;
-        }
-        if (board.getPiece(openPosition).getTeamColor() != mycolor) {
-            return true;
-        } else {
-            return false; // This is a piece of the same color (Not an enemy)
-        }
-    }
 }
 
