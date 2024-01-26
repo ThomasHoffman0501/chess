@@ -71,7 +71,7 @@ public class ChessPiece {
                 validMoves.addAll(KingMoveSet.getValidMoves(board, myPosition, this.pieceColor));
                 break;
             case QUEEN:
-                validMoves.addAll(QueenMoveSet.getValidMoves(board, myPosition, this.pieceColor));
+                validMoves.addAll(new QueenMoveSet().getValidMoves(board, myPosition, this.pieceColor));
                 break;
             case ROOK:
                 validMoves.addAll(new RookMoveSet().getValidMoves(board, myPosition, this.pieceColor));
