@@ -23,14 +23,14 @@ public class KingMoveSet {
         return validMoves;
     }
 
-    private static void addMove(HashSet<ChessMove> validMoves, ChessBoard board, ChessPosition chessPosition, int column, int row) {
-            if (ChessBoard.isValidPosition(row, column)) {
-                ChessPiece pieceAtNewPosition = board.getPiece(new ChessPosition(row, column));
-                if (pieceAtNewPosition == null || !pieceAtNewPosition.getTeamColor().equals(board.getPiece(new ChessPosition(row, column)).getTeamColor())) {
-                    validMoves.add(new ChessMove(chessPosition, new ChessPosition(row, column), null));
-                }
+    private static void addMove(Collection<ChessMove> validMoves, ChessBoard board, ChessPosition chessPosition, int row, int column) {
+        if (ChessBoard.isValidPosition(row, column)) {
+            ChessPiece pieceAtNewPosition = board.getPiece(new ChessPosition(row, column));
+            if (pieceAtNewPosition == null || !pieceAtNewPosition.getTeamColor().equals(board.getPiece(chessPosition).getTeamColor())) {
+                validMoves.add(new ChessMove(chessPosition, new ChessPosition(row, column), null));
             }
         }
+    }
 }
 
 
