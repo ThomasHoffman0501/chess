@@ -14,7 +14,16 @@ public class PawnMoveSet {
         // Normal Pawn Movement (single move upward)
         ChessPosition singleMove = new ChessPosition(currentPosition.getRow() + direction, currentPosition.getColumn());
         if (ChessBoard.isValidPosition(singleMove.getRow(), singleMove.getColumn()) && board.getPiece(singleMove)==null) {
-            validMoves.add(new ChessMove(currentPosition, singleMove, null));
+            if ((currentPosition.getRow() == 7 && direction == 1) || (currentPosition.getRow() == 2 && direction == -1)) {
+                // Pawn Promotion
+                validMoves.add(new ChessMove(currentPosition, singleMove, ChessPiece.PieceType.QUEEN));
+                validMoves.add(new ChessMove(currentPosition, singleMove, ChessPiece.PieceType.BISHOP));
+                validMoves.add(new ChessMove(currentPosition, singleMove, ChessPiece.PieceType.ROOK));
+                validMoves.add(new ChessMove(currentPosition, singleMove, ChessPiece.PieceType.KNIGHT));
+            }
+            else {
+                validMoves.add(new ChessMove(currentPosition, singleMove, null));
+            }
         }
 
         // Pawn can capture pieces DL or DR
@@ -23,7 +32,15 @@ public class PawnMoveSet {
 
             if (ChessBoard.isValidPosition(captureMove.getRow(),captureMove.getColumn()) && board.getPiece(captureMove) != null
                    && board.getPiece(captureMove).getTeamColor() != board.getPiece(currentPosition).getTeamColor()) {
-                validMoves.add(new ChessMove(currentPosition, captureMove, null));
+                if ((captureMove.getRow() == 8) || (captureMove.getRow() == 1)) {
+                    // Pawn Promotion
+                    validMoves.add(new ChessMove(currentPosition, captureMove, ChessPiece.PieceType.QUEEN));
+                    validMoves.add(new ChessMove(currentPosition, captureMove, ChessPiece.PieceType.BISHOP));
+                    validMoves.add(new ChessMove(currentPosition, captureMove, ChessPiece.PieceType.ROOK));
+                    validMoves.add(new ChessMove(currentPosition, captureMove, ChessPiece.PieceType.KNIGHT));
+                } else {
+                    validMoves.add(new ChessMove(currentPosition, captureMove, null));
+                }
             }
 
         }
@@ -33,22 +50,8 @@ public class PawnMoveSet {
             ChessPosition doubleMove = new ChessPosition(currentPosition.getRow() + 2 * direction, currentPosition.getColumn());
 
             if (ChessBoard.isValidPosition(doubleMove.getRow(), doubleMove.getColumn()) && board.getPiece(doubleMove) == null) {
-                validMoves.add(new ChessMove(currentPosition, doubleMove, null));
-            }
-
-        }
-
-        // Pawn Promotion
-        // if (row==0 || row == 1 || col ==0 || col==0) {
-        // collection.add(new ChessMove(chessPosition, endingPosition, ChessPiece.PlaceType.QUEEN));
-        // for other piece types
-        // } else {
-        // return PAWN
-        // } return validMoves;
-        if ((currentPosition.getRow() == 7 && direction == 1) || (currentPosition.getRow() == 2 && direction == -1)) {
-
-            for (ChessPiece.PieceType promotionType : ChessPiece.PieceType.values()) {
-               validMoves.add(new ChessMove(currentPosition, singleMove, promotionType));
+                if (board.getPiece(new ChessPosition(doubleMove.getRow() - direction, doubleMove.getColumn())) == null) {
+                validMoves.add(new ChessMove(currentPosition, doubleMove, null));}
             }
 
         }
