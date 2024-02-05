@@ -31,7 +31,7 @@ public class PawnMoveSet {
             ChessPosition captureMove = new ChessPosition(currentPosition.getRow() + direction, currentPosition.getColumn() + colOffset);
 
             if (ChessBoard.isCorrectPosition(captureMove.getRow(),captureMove.getColumn()) && board.getPiece(captureMove) != null
-                   && board.getPiece(captureMove).getTeamColor() != board.getPiece(currentPosition).getTeamColor()) {
+                    && board.getPiece(captureMove).getTeamColor() != board.getPiece(currentPosition).getTeamColor()) {
                 if ((captureMove.getRow() == 8) || (captureMove.getRow() == 1)) {
                     // Pawn Promotion
                     correctMoves.add(new ChessMove(currentPosition, captureMove, ChessPiece.PieceType.QUEEN));
@@ -51,7 +51,7 @@ public class PawnMoveSet {
 
             if (ChessBoard.isCorrectPosition(doubleMove.getRow(), doubleMove.getColumn()) && board.getPiece(doubleMove) == null) {
                 if (board.getPiece(new ChessPosition(doubleMove.getRow() - direction, doubleMove.getColumn())) == null) {
-                correctMoves.add(new ChessMove(currentPosition, doubleMove, null));}
+                    correctMoves.add(new ChessMove(currentPosition, doubleMove, null));}
             }
 
         }

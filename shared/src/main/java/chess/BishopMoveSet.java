@@ -29,11 +29,11 @@ public class BishopMoveSet {
                 correctMoves.add(new ChessMove(new ChessPosition(currentRow, currentColumn),
                         new ChessPosition(newRow, newColumn), null));
             } else if (pieceAtNewPosition.getTeamColor() != color) {
-                    // Add the move when there is an opponent's piece
-                    correctMoves.add(new ChessMove(new ChessPosition(currentRow, currentColumn),
-                            new ChessPosition(newRow, newColumn), null));
-                    break;
-                } else {break;}
+                // Add the move when there is an opponent's piece
+                correctMoves.add(new ChessMove(new ChessPosition(currentRow, currentColumn),
+                        new ChessPosition(newRow, newColumn), null));
+                break;
+            } else {break;}
 
 
             newRow += rowDirection;
