@@ -9,9 +9,12 @@ import java.util.Arrays;
  * signature of the existing methods.
  */
 public class ChessBoard {
+    public static int numRows = 9;
+    public static int numCols = 9;
     private ChessPiece[][] squares = new ChessPiece[8][8];
     public ChessBoard() {
     }
+
 
     public static boolean isCorrectPosition(int row, int column) {
         return row >= 1 && row <= 8 && column >= 1 && column <= 8;
@@ -24,6 +27,10 @@ public class ChessBoard {
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
         squares[position.getRow()-1][position.getColumn()-1] = piece;
+    }
+
+    public void movePiece(ChessPosition start, ChessPosition end) {
+        squares[start.getRow()-1][start.getColumn()-1] = null;
     }
 
     /**
@@ -93,4 +100,5 @@ public class ChessBoard {
                 "squares=" + Arrays.toString(squares) +
                 '}';
     }
+
 }

@@ -22,6 +22,7 @@ public class ChessPiece {
 
     }
 
+
     /**
      * The various different chess piece options
      * <p>
@@ -87,6 +88,9 @@ public class ChessPiece {
         }
         return validMoves;
     }
+
+    // Helper Method for getting the validMoves for a certain piece type in ChessGame
+
 
     @Override
     public boolean equals(Object o) {
