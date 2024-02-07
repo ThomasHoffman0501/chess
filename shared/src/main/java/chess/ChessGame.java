@@ -46,6 +46,14 @@ public class ChessGame {
      * startPosition
      */
 
+    public Collection<ChessMove> validMoves(ChessPosition startPosition) {
+        Collection<ChessMove> validMoves;
+        validMoves = chessBoard.getPiece(piece, startPosition);
+
+
+        return piece.pieceMoves(chessBoard, startPosition);
+    }
+
     /**
      * Makes a move in a chess game
      *
@@ -53,12 +61,18 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
 
-    /**
-     * Determines if the given team is in check
-     *
-     * @param teamColor which team to check for check
-     * @return True if the specified team is in check
-     */
+    public void makeMove(ChessMove move) throws InvalidMoveException {
+
+    }
+
+        /**
+         * Determines if the given team is in check
+         *
+         * @param teamColor which team to check for check
+         * @return True if the specified team is in check
+         */
+
+
     public boolean isInCheck(TeamColor teamColor) {
         ChessPosition kingPosition = findKingPosition(teamColor);
         HashSet<ChessMove> kingMoves = new HashSet<>();
