@@ -112,7 +112,27 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
+        if (!isInCheck(teamColor)) {
+            return false; // If a player is in check, it isn't stalemate
+        }
 
+        // Checking for legal moves
+        for (int row = 1; row < ChessBoard.numRows; row++) {
+            for (int col = 1; col < ChessBoard.numRows; col++) {
+                ChessPosition currentPosition = new ChessPosition(row, col);
+                ChessPiece piece = chessBoard.getPiece(currentPosition);
+
+
+                if (piece != null && piece.getTeamColor() == teamColor) {
+                    Collection<ChessMove> moves = validMoves(currentPosition);
+                    // If team has any legal moves open
+                    if (!moves.isEmpty()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true; // If team has no legal moves
     }
 
     /**
