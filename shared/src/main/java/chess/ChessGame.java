@@ -2,6 +2,7 @@ package chess;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * For a class that can manage a chess game, making moves on a board
@@ -49,6 +50,12 @@ public class ChessGame {
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
         Collection<ChessMove> validMoves;
         //validMoves = chessBoard.getPiece(startPosition);
+        chessBoard.copy();
+        setBoard(chessBoard.copy());
+        // for (pieceMoves(chessBoard, startPosition)
+        // 1. Create a copy
+        // 2. Make the move on the copy
+        // 3. Check if that move results in Check (if it does, don't add it to valid Moves)
         ChessPiece piece = chessBoard.getPiece(startPosition);
         if (piece == null) {
             return null;
@@ -134,7 +141,33 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
+        ChessPosition kingPosition = findKingPosition(teamColor);
+        HashSet<ChessMove> kingMoves = new HashSet<>();
+        TeamColor enemyColor = (teamColor == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
 
+        // If Enemy Piece can attack King
+        for (int row = 1; row < ChessBoard.numRows; row++) {
+            for (int col = 1; col < ChessBoard.numRows; col++) {
+                ChessPosition currentPosition = new ChessPosition(row, col);
+                ChessPiece piece = chessBoard.getPiece(currentPosition);
+
+                if (piece != null && piece.getTeamColor() == enemyColor) {
+                    Collection<ChessMove> moves = piece.pieceMoves(chessBoard, currentPosition);
+                    if (moves.stream().anyMatch(move -> move.getEndPosition().equals(kingPosition))) {
+                        return true; // King is in Check
+                    }
+                }
+
+                if (piece != null && piece.getTeamColor() == teamColor) {
+                    Collection<ChessMove> moves = validMoves(currentPosition);
+                    // If team has any legal moves open
+                    if (moves.isEmpty()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return false; // King isn't in Check
     }
 
     /**
@@ -168,6 +201,15 @@ public class ChessGame {
         return true; // If team has no legal moves
     }
 
+    @Override
+    public String toString() {
+        return "ChessGame{" +
+                "teamTurn=" + teamTurn +
+                ", chessBoard=" + chessBoard +
+                '}'+
+                "\n";
+    }
+
     /**
      * Sets this game's chessboard with a given board
      *
@@ -187,10 +229,16 @@ public class ChessGame {
     }
 
     @Override
-    public String toString() {
-        return "ChessGame{" +
-                "teamTurn=" + teamTurn +
-                ", chessBoard=" + chessBoard +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessGame chessGame = (ChessGame) o;
+        return teamTurn == chessGame.teamTurn && Objects.equals(chessBoard, chessGame.chessBoard);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(teamTurn, chessBoard);
+    }
+
 }
