@@ -48,9 +48,11 @@ public class ChessGame {
 
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
         Collection<ChessMove> validMoves;
-        validMoves = chessBoard.getPiece(piece, startPosition);
-
-
+        //validMoves = chessBoard.getPiece(startPosition);
+        ChessPiece piece = chessBoard.getPiece(startPosition);
+        if (piece == null) {
+            return null;
+        }
         return piece.pieceMoves(chessBoard, startPosition);
     }
 
@@ -62,10 +64,27 @@ public class ChessGame {
      */
 
     public void makeMove(ChessMove move) throws InvalidMoveException {
+        if (move == null || move.getStartPosition() == null || move.getEndPosition() == null) {
+            throw new InvalidMoveException("Invalid move");
+        }
+        ChessPosition start = move.getStartPosition();
+        ChessPosition end = move.getEndPosition();
 
+        ChessPiece piece = chessBoard.getPiece(start);
+        if (piece == null || piece.getTeamColor() != teamTurn) {
+            throw new InvalidMoveException();
+        }
+        if (!validMoves(start).contains(move)) {
+            throw new InvalidMoveException();
+        }
+        chessBoard.movePiece(start,end);
+        switchTurn();
+    }
+    private void switchTurn() {
+        teamTurn = (teamTurn == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
     }
 
-        /**
+    /**
          * Determines if the given team is in check
          *
          * @param teamColor which team to check for check
