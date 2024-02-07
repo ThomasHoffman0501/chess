@@ -15,6 +15,20 @@ public class ChessBoard {
     public ChessBoard() {
     }
 
+    public ChessBoard copy() {
+        ChessBoard copyBoard = new ChessBoard();
+        // Iterate through the squares and copy each piece
+        for (int row = 1; row < numRows; row++) {
+            for (int col = 1; col < numCols; col++) {
+                ChessPosition currentPosition = new ChessPosition(row, col);
+                ChessPiece piece = getPiece(currentPosition);
+                if (piece != null) {
+                    copyBoard.addPiece(currentPosition, new ChessPiece(piece.getTeamColor(), piece.getPieceType()));
+                }
+            }
+        }
+        return copyBoard;
+    }
 
     public static boolean isCorrectPosition(int row, int column) {
         return row >= 1 && row <= 8 && column >= 1 && column <= 8;

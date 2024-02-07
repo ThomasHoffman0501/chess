@@ -91,7 +91,6 @@ public class ChessPiece {
 
     // Helper Method for getting the validMoves for a certain piece type in ChessGame
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
