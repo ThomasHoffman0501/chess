@@ -44,6 +44,7 @@ public class ChessBoard {
     }
 
     public void movePiece(ChessPosition start, ChessPosition end) {
+        squares[end.getRow()-1][end.getColumn()-1] = squares[start.getRow()-1][start.getColumn()-1];
         squares[start.getRow()-1][start.getColumn()-1] = null;
     }
 

@@ -18,7 +18,7 @@ public class ChessGame {
         this.chessBoard = new ChessBoard();
     }
 
-    /**
+    /*
      * @return Which team's turn it is
      */
 
@@ -47,7 +47,7 @@ public class ChessGame {
      * startPosition
      */
 
-    public Collection<ChessMove> validMoves(ChessPosition startPosition) {
+    /* public Collection<ChessMove> validMoves(ChessPosition startPosition) {
         Collection<ChessMove> validMoves;
         //validMoves = chessBoard.getPiece(startPosition);
         chessBoard.copy();
@@ -62,6 +62,35 @@ public class ChessGame {
         }
         return piece.pieceMoves(chessBoard, startPosition);
     }
+     */
+    public Collection<ChessMove> validMoves(ChessPosition startPosition) {
+        // 1. Create a copy
+        ChessBoard copyBoard = chessBoard.copy();
+        ChessGame game = new ChessGame();
+        game.setBoard(copyBoard);
+        // 2. Make the move on the copy
+        ChessPiece piece = chessBoard.getPiece(startPosition);
+        if (piece == null) {
+            return null;
+        }
+        Collection<ChessMove> validMoves;
+
+
+        validMoves = piece.pieceMoves(copyBoard, startPosition);
+
+        // 3. Check if that move results in Check (if it does, don't add it to valid Moves)
+        validMoves.removeIf(move -> {
+            ChessPosition endPosition = move.getEndPosition();
+            copyBoard.movePiece(startPosition,endPosition);
+            // Sees if move puts the King in Check
+            boolean isInCheck = game.isInCheck(piece.getTeamColor());
+            // Undo move
+            copyBoard.movePiece(endPosition, startPosition);
+
+            return isInCheck;
+        });
+        return validMoves;
+    }
 
     /**
      * Makes a move in a chess game
@@ -72,7 +101,7 @@ public class ChessGame {
 
     public void makeMove(ChessMove move) throws InvalidMoveException {
         if (move == null || move.getStartPosition() == null || move.getEndPosition() == null) {
-            throw new InvalidMoveException("Invalid move");
+            throw new InvalidMoveException();
         }
         ChessPosition start = move.getStartPosition();
         ChessPosition end = move.getEndPosition();
@@ -101,7 +130,6 @@ public class ChessGame {
 
     public boolean isInCheck(TeamColor teamColor) {
         ChessPosition kingPosition = findKingPosition(teamColor);
-        HashSet<ChessMove> kingMoves = new HashSet<>();
         TeamColor enemyColor = (teamColor == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
 
         // If Enemy Piece can attack King
@@ -142,7 +170,6 @@ public class ChessGame {
      */
     public boolean isInCheckmate(TeamColor teamColor) {
         ChessPosition kingPosition = findKingPosition(teamColor);
-        HashSet<ChessMove> kingMoves = new HashSet<>();
         TeamColor enemyColor = (teamColor == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
 
         // If Enemy Piece can attack King
