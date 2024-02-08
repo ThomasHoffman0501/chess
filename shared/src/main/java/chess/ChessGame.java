@@ -179,30 +179,25 @@ public class ChessGame {
     public boolean isInCheckmate(TeamColor teamColor) {
         ChessPosition kingPosition = findKingPosition(teamColor);
         TeamColor enemyColor = (teamColor == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
-
+        if (isInCheck(teamColor) == false) {
+            return false;
+        }
         // If Enemy Piece can attack King
         for (int row = 1; row < ChessBoard.numRows; row++) {
             for (int col = 1; col < ChessBoard.numRows; col++) {
                 ChessPosition currentPosition = new ChessPosition(row, col);
                 ChessPiece piece = chessBoard.getPiece(currentPosition);
 
-                if (piece != null && piece.getTeamColor() == enemyColor) {
-                    Collection<ChessMove> moves = piece.pieceMoves(chessBoard, currentPosition);
-                    if (moves.stream().anyMatch(move -> move.getEndPosition().equals(kingPosition))) {
-                        return true; // King is in Check
-                    }
-                }
-
                 if (piece != null && piece.getTeamColor() == teamColor) {
                     Collection<ChessMove> moves = validMoves(currentPosition);
                     // If team has any legal moves open
-                    if (moves.isEmpty()) {
+                    if (!moves.isEmpty()) {
                         return false;
                     }
                 }
             }
         }
-        return false; // King isn't in Check
+        return true; // King isn't in Check
     }
 
     /**
