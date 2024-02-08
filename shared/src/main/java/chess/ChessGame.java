@@ -78,11 +78,17 @@ public class ChessGame {
         // 3. Check if that move results in Check (if it does, don't add it to valid Moves)
         validMoves.removeIf(move -> {
             ChessPosition endPosition = move.getEndPosition();
+            ChessPiece capturedPiece = copyBoard.getPiece(endPosition);
+
             copyBoard.movePiece(startPosition,endPosition);
             // Sees if move puts the King in Check
             boolean isInCheck = game.isInCheck(piece.getTeamColor());
             // Undo move
             copyBoard.movePiece(endPosition, startPosition);
+
+            if (capturedPiece != null) {
+                copyBoard.addPiece(endPosition, capturedPiece);
+            }
 
             return isInCheck;
         });
