@@ -48,6 +48,10 @@ public class ChessBoard {
         squares[start.getRow()-1][start.getColumn()-1] = null;
     }
 
+    public void movePiece(ChessPosition start, ChessPosition end, ChessPiece promotionPiece) {
+
+    }
+
     /**
      * Gets a chess piece on the chessboard
      *
