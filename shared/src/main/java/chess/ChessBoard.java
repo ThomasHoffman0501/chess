@@ -49,7 +49,12 @@ public class ChessBoard {
     }
 
     public void movePiece(ChessPosition start, ChessPosition end, ChessPiece promotionPiece) {
-
+        squares[start.getRow() - 1][start.getColumn() - 1] = null;
+        if (promotionPiece != null) {
+            addPiece(end, promotionPiece);
+        } else {
+            squares[end.getRow() - 1][end.getColumn() - 1] = squares[start.getRow() - 1][start.getColumn() - 1];
+        }
     }
 
     /**

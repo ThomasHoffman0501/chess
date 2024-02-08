@@ -113,7 +113,12 @@ public class ChessGame {
         if (!validMoves(start).contains(move)) {
             throw new InvalidMoveException();
         }
-        chessBoard.movePiece(start,end);
+        if (piece.getPieceType() == ChessPiece.PieceType.PAWN && (end.getRow() == 1 || end.getRow() == 8)) {
+            ChessPiece promotedPiece = new ChessPiece(piece.getTeamColor(), move.getPromotionPiece());
+            chessBoard.movePiece(start, end, promotedPiece);
+        } else {
+            chessBoard.movePiece(start, end, null);
+        }
         switchTurn();
     }
     private void switchTurn() {
