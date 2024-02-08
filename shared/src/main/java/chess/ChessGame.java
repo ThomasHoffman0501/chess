@@ -75,7 +75,6 @@ public class ChessGame {
         }
         Collection<ChessMove> validMoves;
 
-
         validMoves = piece.pieceMoves(copyBoard, startPosition);
 
         // 3. Check if that move results in Check (if it does, don't add it to valid Moves)
