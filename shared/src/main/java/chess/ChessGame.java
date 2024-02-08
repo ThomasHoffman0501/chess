@@ -73,9 +73,7 @@ public class ChessGame {
         if (piece == null) {
             return null;
         }
-        Collection<ChessMove> validMoves;
-
-        validMoves = piece.pieceMoves(copyBoard, startPosition);
+        Collection<ChessMove> validMoves = piece.pieceMoves(copyBoard, startPosition);
 
         // 3. Check if that move results in Check (if it does, don't add it to valid Moves)
         validMoves.removeIf(move -> {
@@ -209,7 +207,7 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
-        if (!isInCheck(teamColor)) {
+        if (isInCheck(teamColor)) {
             return false; // If a player is in check, it isn't stalemate
         }
 
